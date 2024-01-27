@@ -4,6 +4,7 @@ import authUtils from "../../utils/authUtils";
 import Loading from "../common/Loading";
 import { Box } from "@mui/material";
 import Sidebar from "../common/Sidebar";
+import Navbar from "../common/Navbar";
 
 const AppLayout = () => {
   const navigate = useNavigate();
@@ -23,22 +24,25 @@ const AppLayout = () => {
   return loading ? (
     <Loading fullHeight />
   ) : (
-    <Box
-      sx={{
-        display: "flex",
-      }}
-    >
-      <Sidebar />
+    <>
+      <Navbar />
       <Box
         sx={{
-          flexGrow: 1,
-          p: 1,
-          width: "max-content",
+          display: "flex",
         }}
       >
-        <Outlet />
+        <Sidebar />
+        <Box
+          sx={{
+            flexGrow: 1,
+            p: 1,
+            width: "max-content",
+          }}
+        >
+          <Outlet />
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 export default AppLayout;
