@@ -6,6 +6,7 @@ import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import BookIcon from "@mui/icons-material/Book";
 import { useNavigate } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -41,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, closeSidebar }) => {
             boxSizing: "border-box",
           },
         }}
-        variant="persistent"
+        variant={isMobile ? "temporary" : "persistent"}
         anchor="left"
         open={isSidebarOpen}
         onClose={closeSidebar}

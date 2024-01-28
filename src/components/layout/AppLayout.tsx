@@ -5,6 +5,7 @@ import Loading from "../common/Loading";
 import { Box } from "@mui/material";
 import Sidebar from "../common/Sidebar";
 import Navbar from "../common/Navbar";
+import { isMobile } from "react-device-detect";
 
 const AppLayout = () => {
   const navigate = useNavigate();
@@ -13,6 +14,10 @@ const AppLayout = () => {
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
+  };
+  const sidebarStyle = {
+    marginLeft: isSidebarOpen && !isMobile ? "calc(240px)" : "calc(0)",
+    transition: "width 225ms ease-in-out",
   };
 
   useEffect(() => {
@@ -26,31 +31,17 @@ const AppLayout = () => {
     };
     checkAuth();
   }, [navigate]);
+
   return loading ? (
     <Loading fullHeight />
   ) : (
     <>
-      <Box
-        sx={{
-          // width: isSidebarOpen ? "calc(100% - 240px)" : "100%",
-          marginLeft: isSidebarOpen ? "calc(240px)" : "calc(0)",
-          transition: "width 225ms ease-in-out",
-        }}
-      >
+      <Box sx={sidebarStyle}>
         <Navbar openSidebar={handleSidebarToggle} />
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-        }}
-      >
+      <Box>
         <Sidebar isSidebarOpen={isSidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
-        <Box
-          sx={{
-            flexGrow: 1,
-            p: 1,
-          }}
-        >
+        <Box sx={{ ...sidebarStyle, flexGrow: 1, p: 1 }}>
           <Outlet />
         </Box>
       </Box>

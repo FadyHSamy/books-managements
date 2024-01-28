@@ -11,12 +11,12 @@ const Navbar: React.FC<NavbarProps> = ({ openSidebar }) => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Toolbar
-          </Typography>
           <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={openSidebar}>
             <MenuIcon />
           </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Toolbar
+          </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
