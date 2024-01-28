@@ -11,6 +11,7 @@ import AuthLayout from "./components/layout/AuthLayout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import EditBooks from "./pages/books/EditBooks";
 
 function App() {
   const theme = createTheme({
@@ -27,6 +28,7 @@ function App() {
           </Route>
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
+            <Route path="edit-books" element={<EditBooks />} />
           </Route>
         </Routes>
       </BrowserRouter>
