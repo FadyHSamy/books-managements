@@ -1,4 +1,3 @@
-import React from "react";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -11,14 +10,12 @@ import AuthLayout from "./components/layout/AuthLayout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import EditBooks from "./pages/books/EditBooks";
+import AllBooks from "./pages/books/AllBooks";
+import { lightTheme, darkTheme } from "./theme/theme";
 
 function App() {
-  const theme = createTheme({
-    palette: { mode: "dark" },
-  });
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={false ? darkTheme : lightTheme}>
       <CssBaseline />
       <BrowserRouter>
         <Routes>
@@ -28,7 +25,7 @@ function App() {
           </Route>
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
-            <Route path="edit-books" element={<EditBooks />} />
+            <Route path="all-books" element={<AllBooks />} />
           </Route>
         </Routes>
       </BrowserRouter>

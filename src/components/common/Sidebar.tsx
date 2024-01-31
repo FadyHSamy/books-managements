@@ -7,6 +7,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import BookIcon from "@mui/icons-material/Book";
 import { useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import { useState } from "react";
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -27,10 +30,20 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, closeSidebar }) => {
     {
       name: "Books",
       icon: <BookIcon />,
-      navigateTo: () => navigate("/edit-books"),
+      navigateTo: () => navigate("/all-books"),
     },
   ];
 
+  // const bottomMenuLists = [
+  //   {
+  //     name: false ? "Light Mode" : "Dark Mode",
+  //     icon: false ? <LightModeIcon /> : <DarkModeIcon />,
+  //     navigateTo: () => toggleDarkLightMode(),
+  //   },
+  // ];
+
+  // const toggleDarkLightMode = () => {};
+  // setDarkLightMode(darkLightMode === "light" ? "dark" : "light");
   return (
     <>
       <Drawer
@@ -55,6 +68,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, closeSidebar }) => {
             </ListItemButton>
           ))}
         </List>
+        {/* <List style={{ position: "absolute", bottom: "0", width: "100%" }}>
+          {bottomMenuLists.map((menuItem) => (
+            <ListItemButton key={menuItem.name} onClick={menuItem.navigateTo}>
+              <ListItemIcon>{menuItem.icon}</ListItemIcon>
+              <ListItemText primary={menuItem.name} />
+            </ListItemButton>
+          ))}
+        </List> */}
       </Drawer>
     </>
   );

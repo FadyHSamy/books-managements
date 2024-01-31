@@ -19,6 +19,10 @@ const AppLayout = () => {
     marginLeft: isSidebarOpen && !isMobile ? "calc(240px)" : "calc(0)",
     transition: "width 225ms ease-in-out",
   };
+  const navbarStyle = {
+    marginLeft: isSidebarOpen && !isMobile ? "calc(240px)" : "calc(0)",
+    transition: "width 225ms ease-in-out",
+  };
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -36,7 +40,7 @@ const AppLayout = () => {
     <Loading fullHeight />
   ) : (
     <>
-      <Box sx={sidebarStyle}>
+      <Box sx={navbarStyle}>
         <Navbar openSidebar={handleSidebarToggle} />
       </Box>
       <Box>
