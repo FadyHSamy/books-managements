@@ -14,40 +14,31 @@ const Login = () => {
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    let notValid = false;
     const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/; // Example: Alphanumeric with underscore, 3 to 20 characters
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // Example: Minimum eight characters, at least one letter and one number
 
     if (name === "username") {
       setUserName(value);
       if (value === "") {
-        notValid = true;
         setUsernameErrText("Please fill this field");
       } else if (!usernameRegex.test(value)) {
-        notValid = true;
         setUsernameErrText("Alphanumeric with underscore, 3 to 20 characters");
       } else {
-        notValid = false;
         setUsernameErrText("");
       }
     } else if (name === "password") {
       setPassword(value);
       if (value === "") {
-        notValid = true;
         setPasswordErrText("Please fill this field");
       } else if (!passwordRegex.test(value)) {
-        notValid = true;
         setPasswordErrText("Minimum eight characters, at least one letter and one number");
       } else {
-        notValid = false;
         setPasswordErrText("");
       }
     }
   };
 
   const handleSubmit = async () => {
-    if (false) return;
-
     try {
       setLoading(true);
       const res = await authApi.login({
@@ -64,24 +55,6 @@ const Login = () => {
       alert(error);
       console.log(error);
     }
-
-    // try {
-    //   setLoading(true);
-    //   const res: any = await authApi.login({ username, password });
-    //   setLoading(false);
-    //   navigate("/");
-    // } catch (err: any) {
-    //   const errors = err.data.errors;
-    //   errors.forEach((e: any) => {
-    //     if (e.param === "username") {
-    //       setUsernameErrText(e.msg);
-    //     }
-    //     if (e.param === "password") {
-    //       setPasswordErrText(e.msg);
-    //     }
-    //   });
-    //   setLoading(false);
-    // }
   };
 
   return (

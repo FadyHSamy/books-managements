@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, InternalAxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from "axios";
+import axios from "axios";
 import querystring from "query-string";
 
 const baseUrl = "http://localhost:3100/";

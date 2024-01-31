@@ -12,21 +12,14 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TableSortLabel,
   TextField,
   Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
-interface Book {
-  name: string;
-  language: string;
-  category: string;
-  available: number;
-  [key: string]: string | number; // Index signature for dynamic property access
-}
 
-const booksList: Book[] = [
+import { useState } from "react";
+
+const booksList = [
   {
     name: "ارض زيكولا",
     language: "Arabic",
@@ -90,7 +83,7 @@ const booksList: Book[] = [
 ];
 
 const AllBooks = () => {
-  const [pageSize, setPageSize] = useState<number>(5);
+  const pageSize = 2;
   const [page, setPage] = useState<number>(1);
   const handlePage = (page: number): void => setPage(page);
   const totalPages: number = Math.ceil(booksList.length / pageSize);
@@ -104,36 +97,6 @@ const AllBooks = () => {
       const filteredBooks = booksList.filter((book) => book.name.toLowerCase().includes(trimmedInput));
       setPageContent(filteredBooks);
     }
-  };
-
-  const [order, setOrder] = useState<"asc" | "desc">("asc");
-  const [orderBy, setOrderBy] = useState<string | number>("name");
-
-  const handleRequestSort = (property: string | number) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-
-    const sortedBooks = [...booksList].sort((a, b) => {
-      if (isAsc) {
-        if (typeof a[property] === "string" && typeof b[property] === "string") {
-          return (a[property] as string).localeCompare(b[property] as string);
-        } else if (typeof a[property] === "number" && typeof b[property] === "number") {
-          return (a[property] as number) - (b[property] as number);
-        }
-      } else {
-        if (typeof a[property] === "string" && typeof b[property] === "string") {
-          return (b[property] as string).localeCompare(a[property] as string);
-        } else if (typeof a[property] === "number" && typeof b[property] === "number") {
-          return (b[property] as number) - (a[property] as number);
-        }
-      }
-
-      // Handle other cases or return a default value
-      return 0;
-    });
-
-    setPageContent(sortedBooks.slice((page - 1) * pageSize, page * pageSize));
   };
 
   return (
@@ -159,26 +122,10 @@ const AllBooks = () => {
             <Table sx={{ minWidth: 650 }}>
               <TableHead>
                 <TableRow>
-                  <TableCell align="center">
-                    <TableSortLabel active={orderBy === "name"} direction={order} onClick={() => handleRequestSort("name")}>
-                      Name
-                    </TableSortLabel>
-                  </TableCell>
-                  <TableCell align="center">
-                    <TableSortLabel active={orderBy === "category"} direction={order} onClick={() => handleRequestSort("category")}>
-                      Category
-                    </TableSortLabel>
-                  </TableCell>
-                  <TableCell align="center">
-                    <TableSortLabel active={orderBy === "language"} direction={order} onClick={() => handleRequestSort("language")}>
-                      Language
-                    </TableSortLabel>
-                  </TableCell>
-                  <TableCell align="center">
-                    <TableSortLabel active={orderBy === "available"} direction={order} onClick={() => handleRequestSort("available")}>
-                      Available
-                    </TableSortLabel>
-                  </TableCell>
+                  <TableCell align="center">Name</TableCell>
+                  <TableCell align="center">Category</TableCell>
+                  <TableCell align="center">Language</TableCell>
+                  <TableCell align="center">Available</TableCell>
                   <TableCell align="center">Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -241,7 +188,7 @@ const AllBooks = () => {
               sx={{ padding: 3 }}
               color="primary"
               count={totalPages}
-              onChange={(event, value) => handlePage(value)}
+              onChange={(event, value: number) => handlePage(value)}
               page={page}
               size="medium"
             />

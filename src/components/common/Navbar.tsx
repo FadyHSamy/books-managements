@@ -1,5 +1,5 @@
 import { Box, AppBar, Toolbar, IconButton, Typography, Button } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 
 interface NavbarProps {

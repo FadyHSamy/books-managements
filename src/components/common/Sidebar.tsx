@@ -7,9 +7,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import BookIcon from "@mui/icons-material/Book";
 import { useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import { useState } from "react";
 
 interface SidebarProps {
   isSidebarOpen: boolean;

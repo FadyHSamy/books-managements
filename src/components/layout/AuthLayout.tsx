@@ -7,7 +7,6 @@ import assets from "../../assets";
 
 const AuthLayout = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
