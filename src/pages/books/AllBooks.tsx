@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   IconButton,
   InputLabel,
@@ -18,6 +19,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const booksList = [
   {
@@ -83,27 +85,44 @@ const booksList = [
 ];
 
 const AllBooks = () => {
-  const pageSize = 2;
+  const navigate = useNavigate();
+  const pageSize = 5;
   const [page, setPage] = useState<number>(1);
-  const handlePage = (page: number): void => setPage(page);
   const totalPages: number = Math.ceil(booksList.length / pageSize);
   const [pageContent, setPageContent] = useState(booksList.slice((page - 1) * pageSize, page * pageSize));
   const handleSearchInputChange = (searchInput: string) => {
     const trimmedInput = searchInput.trim().toLowerCase();
 
     if (trimmedInput === "") {
-      setPageContent(booksList);
+      setPageContent(booksList.slice((page - 1) * pageSize, page * pageSize));
     } else {
       const filteredBooks = booksList.filter((book) => book.name.toLowerCase().includes(trimmedInput));
       setPageContent(filteredBooks);
     }
   };
+  const changePage = (pageNumber: number) => {
+    setPage(pageNumber);
+    setPageContent(booksList.slice((pageNumber - 1) * pageSize, pageNumber * pageSize));
+  };
 
   return (
     <>
       <Container sx={{ paddingTop: 2 }}>
-        <Box sx={{ padding: 2 }}>
+        <Box sx={{ padding: 2 }} display="flex" justifyContent="space-between">
           <Typography variant="h3">Inventory</Typography>
+          <Button variant="contained" onClick={() => navigate("/add-book")}>
+            <SvgIcon>
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <circle cx="12" cy="12" r="10" stroke="#1C274C" strokeWidth="1.5"></circle>{" "}
+                  <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#1C274C" strokeWidth="1.5" strokeLinecap="round"></path>{" "}
+                </g>
+              </svg>
+            </SvgIcon>
+          </Button>
         </Box>
         <Box component={Paper} sx={{ borderRadius: 5, padding: 2 }}>
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end", paddingBottom: 4 }}>
@@ -185,10 +204,12 @@ const AllBooks = () => {
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Pagination
               shape="rounded"
-              sx={{ padding: 3 }}
+              sx={{
+                padding: 3,
+              }}
               color="primary"
               count={totalPages}
-              onChange={(event, value: number) => handlePage(value)}
+              onChange={(event, value: number) => changePage(value)}
               page={page}
               size="medium"
             />

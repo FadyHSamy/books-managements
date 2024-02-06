@@ -33,7 +33,7 @@ const AuthLayout = () => {
           flexDirection: "column",
         }}
       >
-        <img src={assets.images.logoDark} style={{ width: "100px" }} alt="app logo" />
+        <img src={assets.images.logoLight} style={{ width: "100px" }} alt="app logo" />
         <Outlet />
       </Box>
     </Container>

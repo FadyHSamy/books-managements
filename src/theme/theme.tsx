@@ -8,7 +8,7 @@ export const lightTheme = createTheme({
       main: "#f39c4f",
     },
     secondary: {
-      main: "#FF4081",
+      main: "#aa6d37",
     },
     background: {
       default: "#F5F5F5",
@@ -20,7 +20,7 @@ export const lightTheme = createTheme({
     },
     action: {
       active: "#f39c4f",
-      hover: "#FF4081",
+      hover: "#aa6d37",
     },
   },
   typography: {

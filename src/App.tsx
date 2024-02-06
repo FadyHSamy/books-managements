@@ -8,10 +8,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
 import AuthLayout from "./components/layout/AuthLayout";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import Login from "./pages/Login/Login";
+import SignUp from "./pages/SignUp/SignUp";
 import AllBooks from "./pages/books/AllBooks";
 import { lightTheme, darkTheme } from "./theme/theme";
+import EditBooks from "./pages/books/EditBooks";
+import AddBook from "./pages/books/AddBook";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
             <Route path="all-books" element={<AllBooks />} />
+            <Route path="edit-books" element={<EditBooks />} />
+            <Route path="add-book" element={<AddBook />} />
           </Route>
         </Routes>
       </BrowserRouter>

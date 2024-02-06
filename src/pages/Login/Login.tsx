@@ -1,19 +1,16 @@
-import { Box, Button, TextField, Container } from "@mui/material";
-import { useState, ChangeEvent } from "react";
+import { Box, Button, Container, TextField } from "@mui/material";
+import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
-import authApi from "../api/authApi";
+import authApi from "../../api/authApi";
 
-const SignUp = () => {
+const Login = () => {
   const navigate = useNavigate();
-
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [usernameErrText, setUsernameErrText] = useState("");
   const [passwordErrText, setPasswordErrText] = useState("");
-  const [confirmPasswordErrText, setConfirmPasswordErrText] = useState("");
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -38,32 +35,24 @@ const SignUp = () => {
       } else {
         setPasswordErrText("");
       }
-    } else if (name === "confirmPassword") {
-      setConfirmPassword(value);
-      if (value === "") {
-        setConfirmPasswordErrText("Please fill this field");
-      } else if (value !== password) {
-        setConfirmPasswordErrText("Confirm password not match");
-      } else {
-        setConfirmPasswordErrText("");
-      }
     }
   };
 
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const res = await authApi.signUp({
+      const res = await authApi.login({
         username: username,
         password: password,
-        confirmPassword: confirmPassword,
       });
       alert(res.message);
+      localStorage.setItem("token", res.token);
       setLoading(false);
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       setLoading(false);
       const error = err as string;
+      alert(error);
       console.log(error);
     }
   };
@@ -80,9 +69,9 @@ const SignUp = () => {
             label="Username"
             name="username"
             disabled={loading}
-            error={usernameErrText !== ""}
             helperText={usernameErrText}
             onChange={handleInputChange}
+            focused
           />
           <TextField
             margin="normal"
@@ -93,33 +82,20 @@ const SignUp = () => {
             name="password"
             type="password"
             disabled={loading}
-            error={passwordErrText !== ""}
             helperText={passwordErrText}
             onChange={handleInputChange}
+            focused
           />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="confirmPassword"
-            label="Confirm Password"
-            name="confirmPassword"
-            type="password"
-            disabled={loading}
-            error={confirmPasswordErrText !== ""}
-            helperText={confirmPasswordErrText}
-            onChange={handleInputChange}
-          />
-          <LoadingButton sx={{ mt: 3, mb: 2 }} variant="outlined" fullWidth color="success" onClick={handleSubmit} loading={loading}>
-            SignUp
+          <LoadingButton sx={{ mt: 3, mb: 2 }} variant="outlined" fullWidth color="primary" onClick={handleSubmit} loading={loading}>
+            Login
           </LoadingButton>
         </Box>
       </Container>
-      <Button component={Link} to="/login" sx={{ textTransform: "none" }}>
-        Already have an account? Login
+      <Button component={Link} to="/signUp" sx={{ textTransform: "none" }}>
+        Don't have an account? SignUp
       </Button>
     </>
   );
 };
 
-export default SignUp;
+export default Login;
